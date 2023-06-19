@@ -13,15 +13,15 @@ namespace FoodShare.Models
 
         [Required]
         [DataType(DataType.Password)]
-        public required string Password { get; set; }
+        public required string Password { get; set; } 
 
         [Required]
-        public required string Role { get; set; }
+        public required string Role { get; set; } = "1";
 
         [Required]
         [Phone]
         public required string Contact { get; set; }
 
-        public int SharesCompleted { get; set; }
+        public int SharesCompleted { get; set; } = 0;
     }
 }
