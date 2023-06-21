@@ -9,6 +9,6 @@ namespace FoodShare.Models
 
         [Required]
         [MaxLength(30)]
-        public  required string TypeName { get; set; }
+        public string TypeName { get; set; } = string.Empty;
     }
 }

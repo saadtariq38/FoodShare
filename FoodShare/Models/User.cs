@@ -12,15 +12,20 @@ namespace FoodShare.Models
         public required string Email { get; set; }
 
         [Required]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters long.")]
         [DataType(DataType.Password)]
-        public required string Password { get; set; } 
+        public string Password { get; set; } = "default";
 
         [Required]
-        public required string Role { get; set; } = "1";
+        [MaxLength(50)]
+        public string Username { get; set; } = string.Empty;
+
+        [Required]
+        public string Role { get; set; } = "1";
 
         [Required]
         [Phone]
-        public required string Contact { get; set; }
+        public string Contact { get; set; } = string.Empty;
 
         public int SharesCompleted { get; set; } = 0;
     }

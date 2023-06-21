@@ -25,18 +25,18 @@ namespace FoodShare.Models
         public required Allergen Allergen { get; set; }
 
         [Required]
-        public required string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
-        public required string Image { get; set; }
+        public string Image { get; set; } = string.Empty;
 
         [Required]
         [Range(1, int.MaxValue)]
         public int FeedCount { get; set; }
 
         [Required]
-        public required string PickupLocation { get; set; }
+        public string PickupLocation { get; set; } = string.Empty;
 
         [Required]
-        public required string Status { get; set; }
+        public string Status { get; set; } = string.Empty;
     }
 }
