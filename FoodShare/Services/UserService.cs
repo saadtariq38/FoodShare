@@ -1,7 +1,8 @@
-﻿using FoodShare.Data;
+﻿using Bcrypt = BCrypt.Net.BCrypt;
+using FoodShare.Data;
 using FoodShare.Interfaces;
 using FoodShare.Models;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodShare.Services
 {
@@ -16,12 +17,36 @@ namespace FoodShare.Services
 
         public async Task<bool> RegisterUser(User user)
         {
+            // Hash the password
+            string hashedPassword = Bcrypt.HashPassword(user.Password);
+            user.Password = hashedPassword;
+
+            // Set default values
+            user.Role = "1";
+            user.SharesCompleted = 0;
+
+            
+
+            // Save the user to the database
+            _context.Users.Add(user);
+            
+            await _context.SaveChangesAsync();
+
             return true;
         }
 
-        public async Task<bool> LoginUser(LoginDataModel loginData)
+        public async Task<User> LoginUser(LoginDataModel loginData)
         {
-            return true;
+            // Retrieve the user based on the provided email
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginData.Email);
+
+            if (user == null)
+            {
+                return null; // User not found
+            }
+
+
+            return user;
         }
     }
 }

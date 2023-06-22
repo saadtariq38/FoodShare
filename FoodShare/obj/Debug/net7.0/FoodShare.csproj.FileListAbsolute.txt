@@ -40,3 +40,9 @@ C:\Users\saad.tariq\source\repos\FoodShare\FoodShare\obj\Debug\net7.0\refint\Foo
 C:\Users\saad.tariq\source\repos\FoodShare\FoodShare\obj\Debug\net7.0\FoodShare.pdb
 C:\Users\saad.tariq\source\repos\FoodShare\FoodShare\obj\Debug\net7.0\FoodShare.genruntimeconfig.cache
 C:\Users\saad.tariq\source\repos\FoodShare\FoodShare\obj\Debug\net7.0\ref\FoodShare.dll
+C:\Users\saad.tariq\source\repos\FoodShare\FoodShare\bin\Debug\net7.0\BCrypt.Net-Next.dll
+C:\Users\saad.tariq\source\repos\FoodShare\FoodShare\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\saad.tariq\source\repos\FoodShare\FoodShare\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\saad.tariq\source\repos\FoodShare\FoodShare\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\saad.tariq\source\repos\FoodShare\FoodShare\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\saad.tariq\source\repos\FoodShare\FoodShare\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
