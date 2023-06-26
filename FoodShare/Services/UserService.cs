@@ -1,8 +1,8 @@
 ﻿using Bcrypt = BCrypt.Net.BCrypt;
-using FoodShare.Data;
 using FoodShare.Interfaces;
 using FoodShare.Models;
 using Microsoft.EntityFrameworkCore;
+using FoodShare.Data;
 
 namespace FoodShare.Services
 {

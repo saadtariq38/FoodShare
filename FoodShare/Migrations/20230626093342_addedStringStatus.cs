@@ -5,25 +5,25 @@
 namespace FoodShare.Migrations
 {
     /// <inheritdoc />
-    public partial class NewInitial : Migration
+    public partial class addedStringStatus : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Description",
-                table: "Shares",
-                type: "character varying(100)",
-                maxLength: 100,
-                nullable: true);
+                name: "Status",
+                table: "Requests",
+                type: "text",
+                nullable: false,
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Description",
-                table: "Shares");
+                name: "Status",
+                table: "Requests");
         }
     }
 }

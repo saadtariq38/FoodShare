@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FoodShare.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230621072624_NewInitial")]
-    partial class NewInitial
+    [Migration("20230626092938_StatusTypeChangeToText")]
+    partial class StatusTypeChangeToText
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -98,17 +98,14 @@ namespace FoodShare.Migrations
                     b.Property<int>("ShareId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("RequestId");
-
-                    b.HasIndex("ShareId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Requests");
                 });
@@ -122,7 +119,6 @@ namespace FoodShare.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ShareId"));
 
                     b.Property<int?>("AllergenId")
-                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
@@ -132,7 +128,7 @@ namespace FoodShare.Migrations
                     b.Property<int>("FeedCount")
                         .HasColumnType("integer");
 
-                    b.Property<int>("FoodTypeId")
+                    b.Property<int?>("FoodTypeId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Image")
@@ -155,12 +151,6 @@ namespace FoodShare.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("ShareId");
-
-                    b.HasIndex("AllergenId");
-
-                    b.HasIndex("FoodTypeId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Shares");
                 });
@@ -192,6 +182,11 @@ namespace FoodShare.Migrations
                     b.Property<int>("SharesCompleted")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
@@ -204,52 +199,6 @@ namespace FoodShare.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("FoodShare.Models.Request", b =>
-                {
-                    b.HasOne("FoodShare.Models.Share", "Share")
-                        .WithMany()
-                        .HasForeignKey("ShareId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FoodShare.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Share");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("FoodShare.Models.Share", b =>
-                {
-                    b.HasOne("FoodShare.Models.Allergen", "Allergen")
-                        .WithMany()
-                        .HasForeignKey("AllergenId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FoodShare.Models.FoodType", "FoodType")
-                        .WithMany()
-                        .HasForeignKey("FoodTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FoodShare.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Allergen");
-
-                    b.Navigation("FoodType");
 
                     b.Navigation("User");
                 });

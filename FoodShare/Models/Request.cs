@@ -10,16 +10,15 @@ namespace FoodShare.Models
 
         [ForeignKey("User")]
         public int UserId { get; set; }
-        public required User User { get; set; }
+       
 
         [ForeignKey("Share")]
         public int ShareId { get; set; }
-        public required Share Share { get; set; }
 
         [Required]
         public int HoursToPickup { get; set; }
 
         [Required]
-        public int Status { get; set; }
+        public string RequestStatus { get; set; } = string.Empty;
     }
 }

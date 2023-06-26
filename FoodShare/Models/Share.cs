@@ -10,19 +10,18 @@ namespace FoodShare.Models
 
         [ForeignKey("User")]
         public int UserId { get; set; }
-        public required User User { get; set; }
 
         
         [StringLength(100)]
         public string? Description { get; set; }
 
         [ForeignKey("FoodType")]
-        public int FoodTypeId { get; set; }
-        public required FoodType FoodType { get; set; }
+        public int? FoodTypeId { get; set; }
+       
 
         [ForeignKey("Allergen")]
         public int? AllergenId { get; set; }
-        public required Allergen Allergen { get; set; }
+       
 
         [Required]
         public string Name { get; set; } = string.Empty;
