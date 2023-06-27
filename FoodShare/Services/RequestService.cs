@@ -55,7 +55,46 @@ namespace FoodShare.Services
         }
 
         public bool CheckShareBelongsToUser(int shareId, int userId) { return _context.Shares.Any(s => s.ShareId == shareId && s.UserId == userId); }
-        
-        
+
+        public async Task<Request> DeleteRequest (int requestId, int shareId, int userId)
+        {
+            // Find the share by ID
+            var share = await _context.Shares.FindAsync(shareId);
+
+            if (share == null)
+            {
+                return null;
+            }
+
+            // Find the request by ID
+            var request = await _context.Requests.FindAsync(requestId);
+            if (request == null)
+            {
+                return null;
+            }
+            // Ensure the request belongs to the specified share
+            if (request.ShareId != shareId)
+            {
+                return null;
+            }
+            if(request.UserId != userId)
+            {
+                return null;
+            }
+
+            // Remove the request from the context
+            _context.Requests.Remove(request);
+            await _context.SaveChangesAsync();
+
+            return request;
+
+        }
+
+        public async Task<Share> GetShareById(int shareId)
+        {
+            return await _context.Shares.FindAsync(shareId);
+        }
+
+
     }
 }

@@ -30,12 +30,12 @@ namespace FoodShare.Models
 
         [Required]
         [Range(1, int.MaxValue)]
-        public int FeedCount { get; set; }
+        public int? FeedCount { get; set; }
 
         [Required]
-        public string PickupLocation { get; set; } = string.Empty;
+        public string? PickupLocation { get; set; } = string.Empty;
 
         [Required]
-        public string Status { get; set; } = string.Empty;
+        public string? Status { get; set; } = string.Empty;
     }
 }

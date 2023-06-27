@@ -73,7 +73,42 @@ namespace FoodShare.Controllers
             return Ok(updatedShare);
         }
 
+        [HttpPost("accept")]
+        [Authorize(Roles = "1")]
+        public async Task<IActionResult> AcceptRequestOnShare([FromQuery] int requestId, int shareId)
+        {
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
+            Share share = await _sharesService.AcceptRequest(requestId, shareId, userId);
+
+            if(share == null)
+            {
+                return BadRequest(new { Error = "Share/Request not found or user not authorized" });
+            }
+
+            Console.WriteLine(share.Status);
+
+            return Ok(share);
+
+        }
+
+        [HttpPut("edit/{shareId}")]
+        [Authorize(Roles = "1")]
+        public async Task<IActionResult> EditShare(int shareId, [FromBody] ShareDataModel shareData)
+        {
+            // Retrieve the UserId from the token
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            // Call the service method to edit the share
+            Share updatedShare = await _sharesService.EditShare(shareId, shareData, userId);
+
+            if (updatedShare == null)
+            {
+                return BadRequest(new { Error = "Editing share failed" });
+            }
+
+            return Ok(updatedShare);
+        }
 
 
     }

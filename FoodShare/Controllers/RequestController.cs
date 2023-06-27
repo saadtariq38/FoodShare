@@ -54,6 +54,23 @@ namespace FoodShare.Controllers
             return Ok(requests);
         }
 
+        [HttpDelete("{shareId}/requests/{requestId}")]
+        [Authorize(Roles = "1,2")]
+        public async Task<IActionResult> DeleteRequest(int shareId, int requestId)
+        {
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            Request req = await _requestsService.DeleteRequest(requestId, shareId, userId);
+
+            if(req == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(req);
+        }
+
+
+
     }
 
    
