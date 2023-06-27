@@ -10,5 +10,6 @@ namespace FoodShare.Interfaces
         Task<Share> CreateShare(ShareDataModel shareData, int userId);
         Task<Share> AcceptRequest(int requestId, int shareId,int userId);
         Task<Share> EditShare(int shareId, ShareDataModel shareData, int userId);
+        Task<Share> DeleteShare(int shareId,int userId);
     }
 }

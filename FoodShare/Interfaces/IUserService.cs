@@ -7,5 +7,7 @@ namespace FoodShare.Interfaces
     {
         Task<bool> RegisterUser(User user);
         Task<User> LoginUser(LoginDataModel loginData);
+        Task<User> GetUserDetailsById(int userId);
+        Task<User> UpdateUserDetails(UserEditModel userData, int userId);
     }
 }

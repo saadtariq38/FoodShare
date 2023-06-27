@@ -2,9 +2,11 @@
 using FoodShare.Interfaces;
 using FoodShare.Models;
 using FoodShare.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -105,6 +107,48 @@ namespace FoodShare.Controllers
 
             
         }
+
+        [HttpGet("details")]
+        [Authorize(Roles = "1,2")]
+        public async Task<IActionResult> GetUserDetails()
+        {
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var user = await _userService.GetUserDetailsById(userId);
+
+            if (user == null)
+            {
+                return NotFound("user does not exist");
+            }
+
+            return Ok(new
+            {
+                Contact = user.Contact,
+                Username = user.Username,
+                SharesCompleted = user.SharesCompleted,
+                Role = user.Role,
+                Email = user.Email,
+                UserId = user.UserId
+            });
+        }
+
+        [HttpPut("edit")]
+        [Authorize(Roles = "1")]
+        public async Task<IActionResult> EditUserDetails([FromBody] UserEditModel userData)
+        {
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var user = await _userService.UpdateUserDetails(userData, userId);
+
+            if (user == null) {
+                return NotFound();
+            }
+
+            return Ok(new
+            {
+                Contact = user.Contact,
+                Username = user.Username
+            });
+        }
+
 
 
 

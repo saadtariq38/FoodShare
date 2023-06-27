@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace FoodShare.Services
 {
     public class ShareService : IShareService
@@ -162,5 +163,29 @@ namespace FoodShare.Services
             return share;
         }
 
+        public async Task<Share> DeleteShare(int shareId, int userId)
+        {
+            var share = await _context.Shares.FirstOrDefaultAsync(s => s.ShareId == shareId);
+
+            if (share == null)
+            {
+                return null;
+            }
+
+            if (share.UserId != userId)
+            {
+                return null;
+            }
+
+            // Delete the share from the database
+            _context.Shares.Remove(share);
+            await _context.SaveChangesAsync();
+
+            return share;
+
+        }
+
     }
+
+
 }

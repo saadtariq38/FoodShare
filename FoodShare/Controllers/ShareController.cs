@@ -110,6 +110,21 @@ namespace FoodShare.Controllers
             return Ok(updatedShare);
         }
 
+        [HttpDelete("delete/{shareId}")]
+        [Authorize(Roles = "1,2")]
+        public async Task<IActionResult> DeleteShare(int shareId)
+        {
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var share = await _sharesService.DeleteShare(shareId, userId);
+
+            if(share == null) { return BadRequest(new { Error = "Not found or Unauthorized" }); }
+
+            
+
+            return Ok(share);
+
+        }
+
 
     }
 }
