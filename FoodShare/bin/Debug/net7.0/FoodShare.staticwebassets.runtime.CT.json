@@ -1,7 +1,7 @@
 {
   "ContentRoots": [
-    "/src/FoodShare/wwwroot/",
-    "/src/FoodShare/obj/Debug/net7.0/scopedcss/bundle/"
+    "/src/FoodShare/wwwroot",
+    "/src/FoodShare/obj/Debug/net7.0/scopedcss/bundle"
   ],
   "Root": {
     "Children": {
